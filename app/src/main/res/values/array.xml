@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="placeholderColors">
+        <item>@color/placeholderColor1</item>
+        <item>@color/placeholderColor2</item>
+        <item>@color/placeholderColor3</item>
+        <item>@color/placeholderColor4</item>
+        <item>@color/placeholderColor5</item>
+    </integer-array>
+</resources>

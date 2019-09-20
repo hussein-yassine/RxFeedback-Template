@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="LoadingButton">
+        <attr name="text" format="string" />
+        <attr name="buttonType" format="enum">
+            <enum name="primary" value="0"/>
+            <enum name="secondary" value="1"/>
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="URLImage">
+        <attr name="url" />
+    </declare-styleable>
+
+    <declare-styleable  name="IdentityPhoto">
+        <attr name="url" />
+    </declare-styleable>
+
+    <declare-styleable  name="IdentityView">
+    </declare-styleable>
+
+    <declare-styleable  name="RequestsListView">
+    </declare-styleable>
+
+
+    <declare-styleable name="DCRoundedButton">
+        <attr name="srcDrawable" format="reference" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="circleColor" format="color" />
+        <attr name="buttonText" format="string" />
+        <attr name="textAppearance" />
+        <attr name="iconSize" />
+    </declare-styleable>
+
+
+    <declare-styleable name="DCTextAppearance">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textBold" format="boolean" />
+        <attr name="textFontFamily" format="reference" />
+        <attr name="textPadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="DCSelector">
+        <attr name="srcNextButton" format="reference" />
+        <attr name="srcPreviousButton" format="reference" />
+        <attr name="buttonWidth" format="dimension" />
+        <attr name="buttonHeight" format="dimension" />
+        <attr name="textAppearance" />
+    </declare-styleable>
+
+    <declare-styleable name="DCChildrenListPreview">
+        <attr name="maxNumberOfItems" format="integer" />
+    </declare-styleable>
+
+</resources>

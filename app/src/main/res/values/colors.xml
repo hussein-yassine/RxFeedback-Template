@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSilver">#F5F7F9</color>
+
+    <!--requests-->
+    <color name="requestTabColor">#16CDD6</color>
+    <color name="cardRequestFooterBackground">#EDF1F4</color>
+
+    <!-- Text colors-->
+    <color name="textColorDark">#757678</color>
+    <color name="textColorDarker">#464652</color>
+    <color name="textColorSelectKid">#6F59AB</color>
+    <color name="textColorSelectClass">#6F59AB</color>
+    <color name="textColorWhite">#FFFFFF</color>
+
+    <!-- Border colors-->
+    <color name="borderLight">#E8E9EB</color>
+    <color name="borderDark">#C1C1C1</color>
+
+    <!--placeholders-->
+    <color name="placeholderColor1">#0FBCC3</color>
+    <color name="placeholderColor2">#F8A32F</color>
+    <color name="placeholderColor3">#6F59AB</color>
+    <color name="placeholderColor4">#6891FA</color>
+    <color name="placeholderColor5">#984BA2</color>
+
+</resources>

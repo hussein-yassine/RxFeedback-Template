@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">فاني</string>
+    <string name="see_history">See History</string>
+    <string name="add_client">Add Client</string>
+
+    <string name="pending" translatable="false">Pending</string>
+    <string name="today" translatable="false">today</string>
+    <string name="tomorrow" translatable="false">tomorrow</string>
+    <string name="yesterday" translatable="false">yesterday</string>
+    <string name="client_paid">Set as Paid</string>
+    <string name="delete_client">Delete Client</string>
+</resources>

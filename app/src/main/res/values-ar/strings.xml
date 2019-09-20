@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">فاني</string>
+    <string name="see_history">رؤية السجلات</string>
+    <string name="add_client">اضافة راكب</string>
+    <string name="client_paid">Client Paid</string>
+    <string name="delete_client">Delete Client</string>
+</resources>

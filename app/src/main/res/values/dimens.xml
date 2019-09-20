@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- typical spacing between two views -->
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+
+    <!--common-->
+    <dimen name="country_width">80dp</dimen>
+    <dimen name="fake_header_height">50dp</dimen>
+    <dimen name="angle_icon_width_height">7dp</dimen>
+    <dimen name="buttons_top_bar_height">50dp</dimen>
+    <dimen name="rounded_button_height">32dp</dimen>
+    <dimen name="row_item_height">40dp</dimen>
+    <dimen name="rounded_button_icon_width_height">12dp</dimen>
+    <dimen name="rounded_button_padding">2dp</dimen>
+    <dimen name="child_icon_name_width">90dp</dimen>
+    <dimen name="calendar_top_bar_height">44dp</dimen>
+
+    <!-- image sizes -->
+    <dimen name="image_width_thumbnail">50dp</dimen>
+    <dimen name="image_width_small">200dp</dimen>
+    <dimen name="image_width_large">480dp</dimen>
+
+    <!-- border -->
+    <dimen name="border_thin">1dp</dimen>
+    <dimen name="border_normal">2dp</dimen>
+    <dimen name="border_large">4dp</dimen>
+
+    <!-- client icons -->
+    <dimen name="child_image_container_width">70dp</dimen>
+    <dimen name="child_image_outside_width">60dp</dimen>
+    <dimen name="child_image_inside_width">52dp</dimen>
+    <dimen name="child_counter_font_size">10sp</dimen>
+    <dimen name="child_counter_width">16dp</dimen>
+    <dimen name="child_image_small_outside_width">40dp</dimen>
+    <dimen name="child_image_small_inside_width">32dp</dimen>
+
+    <!-- font sizes -->
+    <dimen name="font_huge">20sp</dimen>
+    <dimen name="font_larger">18sp</dimen>
+    <dimen name="font_large">15sp</dimen>
+    <dimen name="font_normal">13sp</dimen>
+    <dimen name="font_small">11sp</dimen>
+    <dimen name="font_tiny">10sp</dimen>
+
+    <!-- action bar icons -->
+    <dimen name="action_bar_icon_width">35dp</dimen>
+    <dimen name="action_bar_icon_height">35dp</dimen>
+    <dimen name="loader_width">20dp</dimen>
+    <dimen name="loader_height">20dp</dimen>
+
+    <!-- cards -->
+    <dimen name="card_elevation_tiny">1dp</dimen>
+    <dimen name="card_elevation_small">2dp</dimen>
+    <dimen name="card_elevation_normal">4dp</dimen>
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_height_tall">220dp</dimen>
+    <dimen name="card_height_medium">120dp</dimen>
+    <dimen name="card_height_short">60dp</dimen>
+    <dimen name="card_button_filter_height">40dp</dimen>
+
+    <!-- typical sizes of views -->
+    <dimen name="button_size_tall">48dp</dimen>
+    <dimen name="button_size_normal">32dp</dimen>
+    <dimen name="button_size_short">16dp</dimen>
+    <dimen name="button_size_tiny">12dp</dimen>
+    <dimen name="button_size_micro">9dp</dimen>
+    <dimen name="button_width_normal">80dp</dimen>
+    <dimen name="button_width_large">180dp</dimen>
+    <dimen name="button_half_size_negative">-8dp</dimen>
+
+    <!-- dashboard -->
+    <dimen name="selector_child_height_width">60dp</dimen>
+    <dimen name="card_icon_width_height">24dp</dimen>
+    <dimen name="card_arrow_icon_width_height">10dp</dimen>
+    <dimen name="spacing_card_center">54dp</dimen>
+    <dimen name="schedule_icon_width_height">12dp</dimen>
+    <dimen name="schedule_dots_width">4dp</dimen>
+
+</resources>
