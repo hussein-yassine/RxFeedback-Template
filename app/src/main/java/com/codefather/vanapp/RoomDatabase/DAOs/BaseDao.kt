@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  *
- * Created by Georges Jamous on 05, March, 2019.
+ * Created by Hussein Yassine on 05, March, 2019.
  *
  */
 

@@ -1,7 +1,7 @@
 package com.codefather.vanapp.AppSystem
 
 import com.codefather.vanapp.BusActivity
-import com.codefather.vanapp.Models.ClientDto
+import com.codefather.vanapp.Models.CustomerDto
 import com.codefather.vanapp.Models.HistoryDto
 import com.codefather.vanapp.Utils.DateUtilities
 import com.codefather.vanapp.Utils.LoadState
@@ -20,7 +20,7 @@ object BusSystem {
     data class BusState (
 
         var selectedDate: Date = Date(),
-        var clients:List<ClientDto> = listOf(),
+        var clients:List<CustomerDto> = listOf(),
         var historyItems:List<HistoryDto> = listOf(),
         var busData: BusData = BusData(),
         var dataResult: LoadState<BusData> = LoadState.Loading(),
@@ -35,7 +35,7 @@ object BusSystem {
 
         data class BusData(
             var historyItems:List<HistoryDto> = listOf(),
-            var clients:List<ClientDto> = listOf()
+            var clients:List<CustomerDto> = listOf()
         )
     }
 

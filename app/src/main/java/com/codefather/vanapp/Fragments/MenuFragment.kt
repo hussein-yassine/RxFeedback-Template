@@ -14,6 +14,7 @@ import io.reactivex.rxkotlin.addTo
 import org.notests.rxfeedback.Bindings
 import org.notests.rxfeedback.bindSafe
 import kotlinx.android.synthetic.main.fragment_menu.*
+import org.notests.rxfeedback.bind
 
 /**
  *
@@ -56,8 +57,9 @@ class MenuFragment: BaseFragment() {
         compositeDisposable.dispose()
     }
 
-    private val bindUI = bindSafe<BusSystem.BusState, BusSystem.BusEvent> { state ->
-        Bindings.safe(
+    private val bindUI = bind<BusSystem.BusState, BusSystem.BusEvent> { stateSource ->
+        val state = stateSource.source
+        Bindings(
             subscriptions = listOf(),
             events = listOf(
                 btHistory.watchClicks<BusSystem.BusEvent> { BusSystem.BusEvent.ClickedHistory },

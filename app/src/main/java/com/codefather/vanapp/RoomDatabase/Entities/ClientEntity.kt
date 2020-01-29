@@ -3,9 +3,7 @@ package com.codefather.vanapp.RoomDatabase.Entities
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.codefather.vanapp.Models.ClientDto
-import com.codefather.vanapp.Utils.DateUtilities
-import java.util.*
+import com.codefather.vanapp.Models.CustomerDto
 
 /**
  *
@@ -22,10 +20,10 @@ data class ClientEntity (
     @ColumnInfo(name = "deleted")
     var deleted: Boolean = false
 ){
-    fun toClientDto(): ClientDto{
-        return ClientDto(
-            clientId = clientId,
-            clientName = clientName,
+    fun toClientDto(): CustomerDto{
+        return CustomerDto(
+            customerId = clientId,
+            customerName = clientName,
             deleted = deleted
         )
     }

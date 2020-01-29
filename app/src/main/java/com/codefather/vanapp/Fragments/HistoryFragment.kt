@@ -19,6 +19,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.notests.rxfeedback.Bindings
+import org.notests.rxfeedback.bind
 import org.notests.rxfeedback.bindSafe
 import org.notests.sharedsequence.distinctUntilChanged
 import org.notests.sharedsequence.drive
@@ -71,21 +72,22 @@ class HistoryFragment : BaseFragment() {
         compositeDisposable.dispose()
     }
 
-    private val bindUI = bindSafe<BusSystem.BusState, BusSystem.BusEvent> { state ->
-        Bindings.safe(
+    private val bindUI = bind<BusSystem.BusState, BusSystem.BusEvent> { stateSource ->
+        val state = stateSource.source
+        Bindings(
             subscriptions = listOf(
-                state.map { it.getHistoryViewModels }.distinctUntilChanged().drive {
+                state.map { it.getHistoryViewModels }.distinctUntilChanged().subscribe {
                     updateList(it)
                 },
-                state.map { it.getDate }.distinctUntilChanged().drive { dateSelector.refresh(it) }
+                state.map { it.getDate }.distinctUntilChanged().subscribe { dateSelector.refresh(it) }
             ),
             events = listOf(
                 dateSelector.prevClicks <BusSystem.BusEvent>{ BusSystem.BusEvent.ClickedPreviousDate },
                 dateSelector.nextClicks <BusSystem.BusEvent>{ BusSystem.BusEvent.ClickedNextDate },
-                historyAdapter.paidClicks().map<Int, BusSystem.BusEvent> {
+                historyAdapter.paidClicks().map<BusSystem.BusEvent> {
                     BusSystem.BusEvent.ClickedPaid(it)
                 },
-                historyAdapter.deleteClicks().map<Int, BusSystem.BusEvent> {
+                historyAdapter.deleteClicks().map<BusSystem.BusEvent> {
                     BusSystem.BusEvent.ClickedDeleteUser(it)
                 }
             )

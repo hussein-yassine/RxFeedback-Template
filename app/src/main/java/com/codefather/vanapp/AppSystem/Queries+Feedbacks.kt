@@ -1,19 +1,15 @@
 package com.codefather.vanapp.AppSystem
 
-import android.util.Log
-import com.codefather.vanapp.Feedback
 import com.codefather.vanapp.Manager.RoomManager
 import com.codefather.vanapp.RoomDatabase.Entities.ClientEntity
 import com.codefather.vanapp.RoomDatabase.Entities.HistoryEntity
 import com.codefather.vanapp.StateFeedback
 import com.codefather.vanapp.Utils.LoadState
-import com.codefather.vanapp.Utils.reactSafely
+import com.codefather.vanapp.Utils.LoggerUtil
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.schedulers.Schedulers
 import org.notests.rxfeedback.Optional
-import org.notests.sharedsequence.Signal
-import org.notests.sharedsequence.asSignal
-import org.notests.sharedsequence.just
+import org.notests.rxfeedback.react
 
 /**
  *
@@ -30,7 +26,7 @@ fun BusSystem.BusState.populateData(): Optional<Unit> {
 }
 
 fun populateData(): StateFeedback {
-    return reactSafely<BusSystem.BusState, Unit, BusSystem.BusEvent>(
+    return react<BusSystem.BusState, Unit, BusSystem.BusEvent>(
         query = {
             it.populateData()
         },
@@ -46,11 +42,10 @@ fun populateData(): StateFeedback {
 
             busObservable
                 .subscribeOn(Schedulers.io())
-                .doOnError { Log.wtf("error ", "is " + it.message) }
                 .map<BusSystem.BusEvent> { data ->
                     BusSystem.BusEvent.PopulatedData(data)
-                }.asSignal{
-                    Signal.just(BusSystem.BusEvent.PopulatedData(BusSystem.BusState.BusData()))
+                }.doOnError { error ->
+                    LoggerUtil.crashLog("Error Log", error)
                 }
         }
     )
@@ -61,7 +56,7 @@ private fun createBusData(clients: List<ClientEntity>,
     val clientsList = clients.map { it.toClientDto() }
     val historyList = historyEntities.map { it.toHistoryDto() }
     historyList.forEach { history ->
-        history.client = clientsList.firstOrNull{ it.clientId == history.clientId }
+        history.customerDto = clientsList.firstOrNull{ it.customerId == history.clientId }
     }
     return BusSystem.BusState.BusData(
         historyList.sortedByDescending { it.date },

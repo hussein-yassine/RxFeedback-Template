@@ -13,30 +13,31 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import com.codefather.vanapp.Utils.FragmentListener
 import com.codefather.vanapp.Utils.attachFeedbacks
+import com.codefather.vanapp.Utils.crashLog
 import com.codefather.vanapp.VanApplication.Companion.baseActivity
 import com.codefather.vanapp.VanApplication.Companion.context
+import com.jakewharton.rx.replayingShare
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
-import org.notests.rxfeedback.Bindings
-import org.notests.rxfeedback.bindSafe
-import org.notests.rxfeedback.system
+import org.notests.rxfeedback.*
 import org.notests.sharedsequence.*
 
 
 // BaseActivity this is our root base activity for all activities
 // this contains useful functions and implement the drawer and toolbar
 
-typealias Feedback<State, Event> = (Driver<State>) -> Signal<Event>
+typealias Feedback<State, Event> = (ObservableSchedulerContext<State>) -> Observable<Event>
 
 abstract class BaseActivity<State, Event> : AppCompatActivity(),
     FragmentListener<Feedback<State, Event>> {
 
     private var compositeDisposable = CompositeDisposable()
-    lateinit var stateDriver: Driver<State>
+    lateinit var stateSystem: ObservableSchedulerContext<State>
     var savedState: State? = null
     private val eventsSubject = PublishSubject.create<Event>()
     private val eventsSignal = Signal(eventsSubject)
@@ -53,55 +54,54 @@ abstract class BaseActivity<State, Event> : AppCompatActivity(),
         super.onResume()
         compositeDisposable = CompositeDisposable()
 
-        stateDriver = onCreateSystem()
-
-        stateDriver.drive().addTo(compositeDisposable)
+        stateSystem = onCreateSystem()
+        stateSystem.source.subscribe().addTo(compositeDisposable)
     }
 
     override fun onPause() {
         super.onPause()
         compositeDisposable.dispose()
     }
-
-    abstract fun onCreateSystem(): Driver<State>
+    abstract fun onCreateSystem(): ObservableSchedulerContext<State>
 
     override fun onAttachFeedbacks(vararg feedbacks: Feedback<State, Event>): Disposable {
-        return attachFeedbacks(stateDriver, eventsSubject, *feedbacks)
+        return attachFeedbacks(stateSystem, eventsSubject, *feedbacks)
     }
+
 
     fun createSystem(
         initialState: State,
         init: State?.() -> Unit,
         eventReducer: (State, Event) -> State,
-        vararg feedbacks: (Driver<State>) -> Signal<Event>
-    ): Driver<State> {
+        vararg feedbacks: (ObservableSchedulerContext<State>) -> Observable<Event>
+    ): ObservableSchedulerContext<State> {
         val state = savedState.apply(init) ?: initialState
-        val driver = Driver.system(
+        val systemSource = Observables.system(
             state,
             eventReducer,
+            AndroidSchedulers.mainThread(),
             *feedbacks
-        )
-        return driver
+        ).doOnError { crashLog("createSystemException", it) }.replayingShare()
+        return ObservableSchedulerContext(systemSource, AndroidSchedulers.mainThread())
     }
 
 
     fun bindEventsSubject(): Feedback<State, Event> {
-        return bindSafe {
-            Bindings.safe(
+        return bind {
+            Bindings(
                 subscriptions = listOf(),
-                events = listOf(eventsSignal)
+                events = listOf(eventsSubject)
             )
         }
     }
 
     fun saveState(): Feedback<State, Event> {
-        return bindSafe { stateDriver ->
-            Bindings.safe(
+        return bind { stateDriver ->
+            Bindings(
                 subscriptions = listOf(
-                    stateDriver.drive { savedState = it }
+                    stateDriver.source.subscribe { savedState = it }
                 ),
                 events = listOf(
-                    Signal.never()
                 )
             )
         }

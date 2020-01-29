@@ -1,6 +1,5 @@
 package com.codefather.vanapp.Models
 
-import android.arch.persistence.room.ColumnInfo
 import com.codefather.vanapp.AppSystem.HistoryViewModel
 import com.codefather.vanapp.Utils.DateUtilities
 import java.util.*
@@ -15,7 +14,7 @@ data class HistoryDto (
     var historyId: Int = 0,
     var clientId: Int = 0,
     var date: Date = DateUtilities.today(),
-    var client: ClientDto? = ClientDto(),
+    var customerDto: CustomerDto? = CustomerDto(),
     var isPaid: Boolean = false,
     var deleted: Boolean = false
 ){
@@ -24,7 +23,7 @@ data class HistoryDto (
             historyId = historyId,
             clientId = clientId,
             date = date,
-            client = client ?: ClientDto(),
+            customerDto = customerDto ?: CustomerDto(),
             isPaid = isPaid,
             deleted = deleted
         )

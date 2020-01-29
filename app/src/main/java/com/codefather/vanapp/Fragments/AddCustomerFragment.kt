@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_menu.*
 import org.notests.rxfeedback.Bindings
+import org.notests.rxfeedback.bind
 import org.notests.rxfeedback.bindSafe
 
 /**
@@ -21,7 +22,7 @@ import org.notests.rxfeedback.bindSafe
  *
  */
 
-class AddClientFragment: BaseFragment() {
+class AddCustomerFragment: BaseFragment() {
 
     private var listener: FragmentListener<StateFeedback>? = null
     private var compositeDisposable = CompositeDisposable()
@@ -56,8 +57,8 @@ class AddClientFragment: BaseFragment() {
         compositeDisposable.dispose()
     }
 
-    private val bindUI = bindSafe<BusSystem.BusState, BusSystem.BusEvent> { state ->
-        Bindings.safe(
+    private val bindUI = bind<BusSystem.BusState, BusSystem.BusEvent> { state ->
+        Bindings(
             subscriptions = listOf(),
             events = listOf(
                 btHistory.watchClicks<BusSystem.BusEvent> { BusSystem.BusEvent.ClickedHistory },

@@ -1,10 +1,8 @@
 package com.codefather.vanapp.AppSystem
 
 import com.codefather.vanapp.BusActivity
-import com.codefather.vanapp.Models.ClientDto
-import com.codefather.vanapp.Models.HistoryDto
+import com.codefather.vanapp.Models.CustomerDto
 import com.codefather.vanapp.R
-import com.codefather.vanapp.Utils.DateUtilities
 import com.codefather.vanapp.Utils.getString
 import java.util.*
 
@@ -37,7 +35,7 @@ data class HistoryViewModel(
     val date: Date,
     val isPaid: Boolean,
     val deleted: Boolean,
-    val client: ClientDto
+    val customerDto: CustomerDto
 )
 
 data class ClientViewModel(

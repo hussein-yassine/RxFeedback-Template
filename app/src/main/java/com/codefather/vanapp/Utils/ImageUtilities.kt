@@ -13,7 +13,6 @@ import android.widget.ImageView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.codefather.vanapp.R
-import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Callback
 import com.squareup.picasso.OkHttpDownloader
 import com.squareup.picasso.Picasso
@@ -21,8 +20,6 @@ import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL

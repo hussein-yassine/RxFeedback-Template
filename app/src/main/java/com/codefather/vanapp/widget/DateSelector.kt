@@ -13,6 +13,7 @@ import com.codefather.vanapp.R
 import com.codefather.vanapp.Utils.DateUtilities
 import com.codefather.vanapp.Utils.ViewUtilities
 import com.jakewharton.rxbinding2.view.clicks
+import io.reactivex.Observable
 import org.notests.sharedsequence.Signal
 import org.notests.sharedsequence.asSignal
 import org.notests.sharedsequence.empty
@@ -21,7 +22,7 @@ import java.util.*
 
 /**
  *
- * Created by Georges Jamous on 05, March, 2019.
+ * Created by Hussein Yassine on 05, March, 2019.
  *
  */
 
@@ -222,15 +223,13 @@ class DateSelector @JvmOverloads constructor(context: Context, attrs: AttributeS
 
 
 
-    fun  <Event> prevClicks(mapperFunction: (Unit?) -> Event): Signal<Event> {
+    fun  <Event> prevClicks(mapperFunction: (Unit?) -> Event): Observable<Event> {
         return this.previousBtnLayout.clicks()
-            .asSignal(Signal.empty())
             .map(mapperFunction)
     }
 
-    fun  <Event> nextClicks(mapperFunction: (Unit?) -> Event): Signal<Event> {
+    fun  <Event> nextClicks(mapperFunction: (Unit?) -> Event): Observable<Event> {
         return this.nextBtnLayout.clicks()
-            .asSignal(Signal.empty())
             .map(mapperFunction)
     }
 }

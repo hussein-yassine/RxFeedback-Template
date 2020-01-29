@@ -12,11 +12,11 @@ import com.codefather.vanapp.AppSystem.HistoryViewModel
 import com.codefather.vanapp.R
 import com.codefather.vanapp.Utils.ImageUtilities
 import com.codefather.vanapp.VanApplication.Companion.context
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.client_icon_layout.view.*
 import kotlinx.android.synthetic.main.client_icon_name_layout.view.*
 import kotlinx.android.synthetic.main.history_cell.view.*
-import org.notests.sharedsequence.Signal
 
 /**
  *
@@ -51,7 +51,7 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
                 ImageUtilities.ImageSize.THUMBNAIL
             )
 
-            clientIconNameTextView.text = history.client.clientName
+            clientIconNameTextView.text = history.client.customerName
             clientIconNameTextView.setTypeface(
                 ResourcesCompat.getFont(context, R.font.nunito),
                 Typeface.NORMAL
@@ -77,11 +77,11 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun paidClicks(): Signal<Int> {
-        return Signal(paidClickSubject)
+    fun paidClicks(): Observable<Int> {
+        return paidClickSubject
     }
 
-    fun deleteClicks(): Signal<Int> {
-        return Signal(deleteClickSubject)
+    fun deleteClicks(): Observable<Int> {
+        return deleteClickSubject
     }
 }

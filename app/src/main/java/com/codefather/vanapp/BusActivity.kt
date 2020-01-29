@@ -5,21 +5,19 @@ import com.codefather.vanapp.AppSystem.BusSystem
 import com.codefather.vanapp.AppSystem.isBackButtonVisible
 import com.codefather.vanapp.AppSystem.populateData
 import com.codefather.vanapp.AppSystem.setFragmentTitle
-import com.codefather.vanapp.BusInfo.Fragments.AddClientFragment
+import com.codefather.vanapp.BusInfo.Fragments.AddCustomerFragment
 import com.codefather.vanapp.BusInfo.Fragments.HistoryFragment
 import com.codefather.vanapp.BusInfo.Fragments.MenuFragment
 import com.codefather.vanapp.Utils.FragmentListener
 import com.codefather.vanapp.Utils.collectNotNull
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
-import org.notests.rxfeedback.Bindings
-import org.notests.rxfeedback.Optional
-import org.notests.rxfeedback.bindSafe
-import org.notests.sharedsequence.*
+import org.notests.rxfeedback.*
 
 import com.codefather.vanapp.AppSystem.BusSystem.BusState as State
 import com.codefather.vanapp.AppSystem.BusSystem.BusEvent as Event
 
-typealias StateFeedback = (Driver<State>) -> Signal<Event>
+typealias StateFeedback = (ObservableSchedulerContext<State>) -> Observable<Event>
 class BusActivity : BaseActivity<State, Event>(),
     FragmentListener<StateFeedback> {
 
@@ -37,7 +35,7 @@ class BusActivity : BaseActivity<State, Event>(),
     }
 
     //<editor-fold desc="State Driver and its feedback section">
-    override fun onCreateSystem(): Driver<State> {
+    override fun onCreateSystem(): ObservableSchedulerContext<State> {
 
         return createSystem(
             State(),
@@ -55,34 +53,32 @@ class BusActivity : BaseActivity<State, Event>(),
     }
 
     private fun bindUI(): StateFeedback {
-        return bindSafe { stateDriver ->
-            Bindings.safe(
+        return bind {   stateSource ->
+            val state = stateSource.source
+            Bindings(
                 subscriptions = listOf(
-                    stateDriver.map { it.isBackButtonVisible }.distinctUntilChanged().drive {
+                    state.map { it.isBackButtonVisible }.distinctUntilChanged().subscribe {
                         setBackButtonVisible(it)
                     },
-                    stateDriver.map { it.setFragmentTitle }.distinctUntilChanged().drive {
+                    state.map { it.setFragmentTitle }.distinctUntilChanged().subscribe {
                         setActionBarTitle(it)
                     }
                 ),
-                events = listOf(
-                    Signal.never()
-                )
+                events = listOf()
             )
         }
     }
 
     private fun bindRoutes(): StateFeedback {
-        return bindSafe { stateDriver ->
-            Bindings.safe(
+        return bind {   stateSource ->
+            val state = stateSource.source
+            Bindings(
                 subscriptions = listOf(
-                    stateDriver.map { it.route }.collectNotNull().drive {
+                    state.map { it.route }.collectNotNull().distinctUntilChanged().subscribe {
                         gotoRoute(it)
                     }
                 ),
-                events = listOf(
-                    Signal.never()
-                )
+                events = listOf()
             )
         }
     }
@@ -97,7 +93,7 @@ class BusActivity : BaseActivity<State, Event>(),
                     TAG_HISTORY, true, "${route}")
             }
             State.Route.AddClient -> {
-                pushFragment(AddClientFragment(), R.id.mainContainer,
+                pushFragment(AddCustomerFragment(), R.id.mainContainer,
                     TAG_ADD_CLIENT, true, "${route}")
             }
         }
